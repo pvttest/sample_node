@@ -1,7 +1,6 @@
 # Language setting
 language: node_js
 
-
 #build_image: drydock/u12nod:prod
 
 # Version number
@@ -40,4 +39,10 @@ after_script:
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
 
 
-cache: true
+notifications:
+     email:
+         recipients:
+             - vidya@shippable.com
+             - shiphitchcock2@gmail.com
+         on_success: always
+         on_failure: always
