@@ -36,9 +36,4 @@ after_script:
 
 
 notifications:
-    email:
-        recipients:
-           - vidya@shippable.com
-           - shiphitchcock2@gmail.com
-        on_success: change
-        on_failure: change
+    email: false
