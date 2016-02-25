@@ -17,7 +17,7 @@ env:
 install:
 
   - node --version
-  - npm instalqql
+  - npm install
 
 
 # Create directories for test and coverage reports
