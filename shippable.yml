@@ -6,7 +6,7 @@ language: node_js
 # Version number
 node_js:
   - 0.11
-  - 0.10
+  #- 0.10
 
 # The path for Xunit to output test reports
 env:
@@ -36,9 +36,9 @@ after_script:
 
 
 notifications:
-     email:
-         recipients:
-             - vidya@shippable.com
-             - shiphitchcock2@gmail.com
-         on_success: change
-         on_failure: change
+    email:
+        recipients:
+           - vidya@shippable.com
+           - shiphitchcock2@gmail.com
+        on_success: change
+        on_failure: change
