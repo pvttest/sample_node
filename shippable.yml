@@ -31,5 +31,5 @@ build:
 integrations:
   hub:
     - integrationName: ship-gcr
-      type: ecr 
-      region: us-west-2
+      type: gcr 
+      
