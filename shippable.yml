@@ -9,10 +9,10 @@ node_js:
   
 build:
   pre_ci:
-    - docker build -t=shiphitchcock2/server_sample_node .
+    - docker build -t=quay.io/qhstest01/server-sample-node .
 
   pre_ci_boot:
-    image_name: shiphitchcock2/server_sample_node
+    image_name: quay.io/qhstest01/server-sample-node
     image_tag: latest
     pull: false
     options: '--privileged=true --net=bridge -e FOO=true -e BOO=false'
@@ -20,12 +20,13 @@ build:
   ci:
     - ps -eax
     - ls -al
-    
+    - echo $M1
 
-  #post_ci:
-   # - docker push shippabledocker/shiphitchcock2_sample_node 
+  post_ci:
+    - docker push quay.io/qhstest01/server-sample-node
+
 
 integrations:
   hub:
-    - integrationName: ship-docker
-      type: docker
+    - integrationName: "ship-quay"
+      type: "quay.io"
