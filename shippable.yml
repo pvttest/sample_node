@@ -7,86 +7,18 @@ language: node_js
 node_js:
   - 0.12
   
-branches:
- only:
-   - master
-   - secure*
-   - cache
- 
- 
-matrix:
-  allow_failures:
-    - node_js: 0.12
-      env: M1=ONE
-    - node_js: 0.12
-     
   
-
-# The path for Xunit to output test reports
 env:
- global:
-   - foo=bar
-   - secure: LaXTgujrCAkTiRlN1PqfMP74F6Ihzj09v4BLYlceqh2CEgtuNYeqOFSJSc1gz8IRA8qkMem46igQGayIprD0uhldaz9lOPiacnjraaYtB+GmgYIuNvg4GN9LjVCsuaG0W7SIn0n95BLR2YE2YFl11efD7B+IMknnhumimWPl78o+e1hfVZmxr4wL76ZFnnAL9qOA1J1FyK2euelpPoDEZvppDndd1GnuUxrUtSe0eI0NN/sIqk8iCsIJLNYZmBDropKgMjQRvm5UQ/E5Tf5MSTxYtxVPRXLx9AHMdcvuEUbByH8D034FxCeznWKVeYdXlt1l8fLm3DK0PbSjKMpV2A==
- 
-build:
- ci:
-  - npm install
-  - node --version
-  - mkdir -p shippable/testresults
-  - mkdir -p shippable/codecoverage
-  - grunt
-  - echo $GIT_TAG_NAME and $server1 and $server2
-  - ./node_modules/.bin/istanbul cover grunt -- -u tdd
-  - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
-  #- if [ "$SHIPPABLE_NODE_VERSION" == "0.12" ]; then foobar; fi
- cache: true
+  global:
+    - APP_NAME=node-mongo-heroku
+    - secure: OuxjHIQHJNU3UnaZ1HAi1DOwhkJdAd7Fn9SQoPsuBFjKM4Acm4YKjUfJQmAhaTH/KjBj1UXFQzAvE7BfTdV1BxmTML4N3erctfTt0LQD9LGn0BRLTIZYo87WRepAG1CVpVgEos4grKdWRvd+u/88okR3oZosNy6Ph3q7Vwsn46c5SqTKcEURvG3LypJjp6dBYOoPmLrh5S0aJmdEWBrJQ0bXtiVHZ1HYJ+0yl9VztQq1B90dRG6JG7nWVlzs/cGePi8abQT1B5xt8vdHeFS4NLQGfafcoAfe8rhflFqA9ECYSptUYLINgxGU9NPxS61X9az1lDb9wRXLU6ev+4j/mQ==
+    
+build: 
+  ci:
+    - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+    - ps -eax
+    - ls -al
+    - test -f ~/.ssh/id_rsa.heroku || ssh-keygen -y -f /tmp/ssh/sub > ~/.ssh/id_rsa.heroku && heroku keys:add ~/.ssh/id_rsa.heroku
 
-
-integrations:
-  
-  notifications:
-    - integrationName: email
-      type: email
-      recipients: 
-        - shiphitchcock2@gmail.com
-        - vidya@shippable.com
-      
-      on_pull_request: always
-      on_start: always
-      on_success: always
-      on_failure: always
-      
-    - integrationName: ship-slack
-      type: slack
-      recipients: 
-        - "#hitchcock1-public"
-        - pvt-channel
-      
-      on_start: always
-      on_pull_request: always
-      on_success: always
-      on_failure: always
- 
-    - integrationName: irc
-      type: irc
-      recipients: 
-        - "chat.freenode.net#test-cock"
-        - "chat.freenode.net#hitchcok2-irc"
-      
-      on_start: always
-      on_pull_request: always
-      on_success: always
-      on_failure: always
-      
-    - integrationName: ship-hipchat
-      type: hipchat
-      recipients: 
-      #  - "#pvt-room"
-        - "@shiphitchcock2"
-      #  - "#pub-room"
-        - "#Zurtr"
-      
-      on_start: always
-      on_pull_request: always
-      on_success: always
-      on_failure: always
+    - git remote -v | grep ^heroku || heroku git:remote --ssh-git --app $APP_NAME
+    - git push -f heroku master 
