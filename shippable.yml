@@ -6,7 +6,7 @@ language: node_js
 # Version number
 node_js:
   - 0.12
-  - "0.10"
+  
 branches:
  only:
    - master
@@ -19,27 +19,14 @@ matrix:
       env: M1=ONE
     - node_js: 0.12
      
-  exclude:
-    - node_js: "0.10"
-   # - node_js: "4.2.2"
-    
-  include:
-    - node_js: "5.0"
-      env:
-         - key1=aaa
-         - key3=bbbb
-    - node_js: "4.2.2"
-      env: key2=aaaaa
+  
 
 # The path for Xunit to output test reports
 env:
  global:
    - foo=bar
    - secure: LaXTgujrCAkTiRlN1PqfMP74F6Ihzj09v4BLYlceqh2CEgtuNYeqOFSJSc1gz8IRA8qkMem46igQGayIprD0uhldaz9lOPiacnjraaYtB+GmgYIuNvg4GN9LjVCsuaG0W7SIn0n95BLR2YE2YFl11efD7B+IMknnhumimWPl78o+e1hfVZmxr4wL76ZFnnAL9qOA1J1FyK2euelpPoDEZvppDndd1GnuUxrUtSe0eI0NN/sIqk8iCsIJLNYZmBDropKgMjQRvm5UQ/E5Tf5MSTxYtxVPRXLx9AHMdcvuEUbByH8D034FxCeznWKVeYdXlt1l8fLm3DK0PbSjKMpV2A==
- matrix:
-   - M1=ONE
-   - secure: FBhb07ojGWqYiOAEW/jkte3uSMuJLoRDr8tJXIgrclavkD3h2uP6N08cnwtkg04tn0GtZw+LIzfcGehy/uSGIUTlymzmzEt+JtfAo8/FjQ93CF/fOnCDEc8Jxxx2bGJSdjQk+mZoiJPP5avSst6nyQ1oI4vz6PbfhCGFzLq4VFFG8slLPEPeE6I3v+ZRWdsp/MwTpCOoLXAST8bMZAt7n3I7FVXl9/4/+D9V1n9Iv942mjLZ5u7T8IpL9afj0NZOeIIIWgxe427reB/iux6vi5t2tKMrO/vBS/baYYcxHzBTHHTWkIaT/ZoqUNxW8ipCx+qJseeXJ4C290u5cuQwXw==
-
+ 
 build:
  ci:
   - npm install
@@ -50,7 +37,8 @@ build:
   - echo $GIT_TAG_NAME and $server1 and $server2
   - ./node_modules/.bin/istanbul cover grunt -- -u tdd
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
-  - if [ "$SHIPPABLE_NODE_VERSION" == "0.12" ]; then foobar; fi
+  #- if [ "$SHIPPABLE_NODE_VERSION" == "0.12" ]; then foobar; fi
+ cache: true
 
 
 integrations:
