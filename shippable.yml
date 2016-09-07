@@ -10,10 +10,10 @@ node_js:
 build:
 
   pre_ci:
-    - docker build -t=291318889788.dkr.ecr.us-west-2.amazonaws.com/revathi/test:$BRANCH.$BUILD_NUMBER  .
+    - docker build -t=gcr.io/vidya-project/pyt-img:$BRANCH.$BUILD_NUMBER  .
 
   pre_ci_boot:
-    image_name: 291318889788.dkr.ecr.us-west-2.amazonaws.com/revathi/test
+    image_name: gcr.io/vidya-project/pyt-img
     image_tag: latest 
     pull: false
     env: a=b
@@ -26,10 +26,10 @@ build:
 
   post_ci:
    
-    - docker push 291318889788.dkr.ecr.us-west-2.amazonaws.com/revathi/test:$BRANCH.$BUILD_NUMBER 
+    - docker push gcr.io/vidya-project/pyt-img:$BRANCH.$BUILD_NUMBER 
     
 integrations:
   hub:
-    - integrationName: ship-ecr
+    - integrationName: ship-gcr
       type: ecr 
       region: us-west-2
