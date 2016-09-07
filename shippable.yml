@@ -17,32 +17,63 @@ env:
   - x=y
   - a=b
 
-install:
+build:
+ ci:
 
   - node --version
-  - npm install
-
-
-# Create directories for test and coverage reports
-before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
-
-# Running the tests with grunt
-script:
   - grunt
   - echo $GIT_TAG_NAME
-
-# Tell istanbul to generate a coverage report
-after_script:
   - ./node_modules/.bin/istanbul cover grunt -- -u tdd
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
 
 
-notifications:
-    email:
-        recipients:
-           - vidya@shippable.com
-           - shiphitchcock2@gmail.com
-        on_success: change
-        on_failure: change
+integrations:
+  
+  notifications:
+    - integrationName: email
+      type: email
+      recipients: 
+        - shiphitchcock2@gmail.com
+        - vidya@shippable.com
+      
+      on_pull_request: always
+      on_start: always
+      on_success: always
+      on_failure: always
+      
+    - integrationName: ship-slack1
+      type: slack
+      recipients: 
+        - "#hitchcock1-public"
+        - pvt-channel
+      
+      on_start: always
+      on_pull_request: always
+      on_success: always
+      on_failure: always
+ 
+    - integrationName: irc
+      type: irc
+      recipients: 
+        - "chat.freenode.net#test-cock"
+        - "chat.freenode.net#hitchcok2-irc"
+      
+      on_start: always
+      on_pull_request: always
+      on_success: always
+      on_failure: always
+      
+    - integrationName: test-hipchat
+      type: hipchat
+      recipients: 
+      #  - "#pvt-room"
+        - "@shiphitchcock2"
+      #  - "#pub-room"
+        - "#Zurtr"
+      
+      on_start: always
+      on_pull_request: always
+      on_success: always
+      on_failure: always
