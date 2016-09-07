@@ -31,5 +31,5 @@ build:
 integrations:
   hub:
     - integrationName: ship-gcr
-      type: gcr 
+      type: gcr
       
