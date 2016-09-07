@@ -8,6 +8,16 @@ node_js:
   - 0.12
   
 build:
+
+  pre_ci:
+    -  - docker build -t=291318889788.dkr.ecr.us-west-2.amazonaws.com/revathi/test .
+
+  pre_ci_boot:
+    image_name: 291318889788.dkr.ecr.us-west-2.amazonaws.com/revathi/test
+    image_tag: latest 
+    pull: false
+    env: a=b
+    options: '--privileged=true --net=bridge -e FOO=true -e BOO=false -e a=b'
   
   ci:
     - ps -eax
@@ -15,7 +25,7 @@ build:
     - echo $M1
 
   post_ci:
-    - docker build -t=291318889788.dkr.ecr.us-west-2.amazonaws.com/revathi/test .
+   
     - docker push 291318889788.dkr.ecr.us-west-2.amazonaws.com/revathi/test
     
 integrations:
