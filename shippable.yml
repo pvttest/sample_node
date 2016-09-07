@@ -7,86 +7,25 @@ language: node_js
 node_js:
   - 0.12
   
-branches:
- only:
-   - master
-   - secure*
-   - cache
- 
- 
-matrix:
-  allow_failures:
-    - node_js: 0.12
-      env: M1=ONE
-    - node_js: 0.12
-     
-  
-
-# The path for Xunit to output test reports
-env:
- global:
-   - foo=bar
-   - secure: LaXTgujrCAkTiRlN1PqfMP74F6Ihzj09v4BLYlceqh2CEgtuNYeqOFSJSc1gz8IRA8qkMem46igQGayIprD0uhldaz9lOPiacnjraaYtB+GmgYIuNvg4GN9LjVCsuaG0W7SIn0n95BLR2YE2YFl11efD7B+IMknnhumimWPl78o+e1hfVZmxr4wL76ZFnnAL9qOA1J1FyK2euelpPoDEZvppDndd1GnuUxrUtSe0eI0NN/sIqk8iCsIJLNYZmBDropKgMjQRvm5UQ/E5Tf5MSTxYtxVPRXLx9AHMdcvuEUbByH8D034FxCeznWKVeYdXlt1l8fLm3DK0PbSjKMpV2A==
- 
 build:
- ci:
-  - npm install
-  - node --version
-  - mkdir -p shippable/testresults
-  - mkdir -p shippable/codecoverage
-  - grunt
-  - echo $GIT_TAG_NAME and $server1 and $server2
-  - ./node_modules/.bin/istanbul cover grunt -- -u tdd
-  - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
-  #- if [ "$SHIPPABLE_NODE_VERSION" == "0.12" ]; then foobar; fi
- cache: true
+  pre_ci:
+    - docker build -t=shiphitchcock2/server_sample_node .
 
+  pre_ci_boot:
+    image_name: shiphitchcock2/server_sample_node
+    image_tag: latest
+    pull: false
+    options: '--privileged=true --net=bridge -e FOO=true -e BOO=false'
+
+  ci:
+    - ps -eax
+    - ls -al
+    
+
+  #post_ci:
+   # - docker push shippabledocker/shiphitchcock2_sample_node 
 
 integrations:
-  
-  notifications:
-    - integrationName: email
-      type: email
-      recipients: 
-        - shiphitchcock2@gmail.com
-        - vidya@shippable.com
-      
-      on_pull_request: always
-      on_start: always
-      on_success: always
-      on_failure: always
-      
-    - integrationName: ship-slack
-      type: slack
-      recipients: 
-        - "#hitchcock1-public"
-        - pvt-channel
-      
-      on_start: always
-      on_pull_request: always
-      on_success: always
-      on_failure: always
- 
-    - integrationName: irc
-      type: irc
-      recipients: 
-        - "chat.freenode.net#test-cock"
-        - "chat.freenode.net#hitchcok2-irc"
-      
-      on_start: always
-      on_pull_request: always
-      on_success: always
-      on_failure: always
-      
-    - integrationName: ship-hipchat
-      type: hipchat
-      recipients: 
-      #  - "#pvt-room"
-        - "@shiphitchcock2"
-      #  - "#pub-room"
-        - "#Zurtr"
-      
-      on_start: always
-      on_pull_request: always
-      on_success: always
-      on_failure: always
+  hub:
+    - integrationName: ship-docker
+      type: docker
