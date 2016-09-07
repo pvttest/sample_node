@@ -8,21 +8,14 @@ node_js:
   - 0.12
   
 build:
-  pre_ci:
-    - docker build -t=quay.io/qhstest01/server-sample-node .
-
-  pre_ci_boot:
-    image_name: quay.io/qhstest01/server-sample-node
-    image_tag: latest
-    pull: false
-    options: '--privileged=true --net=bridge -e FOO=true -e BOO=false'
-
+  
   ci:
     - ps -eax
     - ls -al
     - echo $M1
 
   post_ci:
+    - docker build -t=quay.io/qhstest01/server-sample-node .
     - docker push quay.io/qhstest01/server-sample-node
 
 
