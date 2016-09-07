@@ -38,6 +38,7 @@ integrations:
       recipients: 
         - shiphitchcock2@gmail.com
         - vidya@shippable.com
+        - qhstest01@gmail.com
       
       on_pull_request: always
       on_start: always
