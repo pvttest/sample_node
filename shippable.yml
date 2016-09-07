@@ -11,6 +11,7 @@ branches:
  except:
    - master
    - secure*
+   - except
  
  
 matrix:
