@@ -92,3 +92,17 @@ integrations:
       on_failure: always
       on_start: always
       on_success: always
+      
+    - integrationName: webhook-trigger
+      type: webhook
+      payload:
+        - title=success - $REPO_FULL_NAME - $BUILD_NUMBER
+        - body=Shippable Run $BUILD_NUMBER ($BUILD_URL) successs for $COMPARE_URL
+        - component=$REPO_NAME
+        - version=$COMMIT
+        - description=$COMPARE_URL
+        - owner=$ORG_NAME
+        - source=Shippable
+      on_success: always
+      on_start: always
+      on_failure: always
