@@ -47,6 +47,7 @@ build:
   - echo $GIT_TAG_NAME and $server1 and $server2
   - ./node_modules/.bin/istanbul cover grunt -- -u tdd
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
+  - if [ "$SHIPPABLE_NODE_VERSION" == "0.12" ]; then foobar; fi
 
 
 integrations:
