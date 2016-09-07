@@ -20,7 +20,7 @@ env:
 
 build:
  ci:
-  - npm install
+  #- npm install
   - node --version
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
