@@ -1,3 +1,3 @@
-FROM drydock/u12nod:prod
+FROM drydock/u14nodpls:prod
 
 RUN mkdir -p /tmp/logs
