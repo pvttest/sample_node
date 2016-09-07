@@ -6,7 +6,7 @@ language: node_js
 # Version number
 node_js:
   - 0.11
-  - 0.10
+ # - 0.10
 
 # The path for Xunit to output test reports
 env:
@@ -15,7 +15,7 @@ env:
   - FOO=bar
  matrix:
   - x=y
-  - a=b
+  #- a=b
 
 build:
  ci:
@@ -43,7 +43,7 @@ integrations:
       on_success: always
       on_failure: always
       
-    - integrationName: ship-slack1
+    - integrationName: ship-slack
       type: slack
       recipients: 
         - "#hitchcock1-public"
@@ -65,7 +65,7 @@ integrations:
       on_success: always
       on_failure: always
       
-    - integrationName: test-hipchat
+    - integrationName: ship-hipchat
       type: hipchat
       recipients: 
       #  - "#pvt-room"
