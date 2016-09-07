@@ -10,12 +10,7 @@ node_js:
 
 # The path for Xunit to output test reports
 env:
- global:
-  - XUNIT_FILE=shippable/testresults/result.xml
-  - FOO=bar
- matrix:
-  - x=y
-  #- a=b
+ - secure: FBhb07ojGWqYiOAEW/jkte3uSMuJLoRDr8tJXIgrclavkD3h2uP6N08cnwtkg04tn0GtZw+LIzfcGehy/uSGIUTlymzmzEt+JtfAo8/FjQ93CF/fOnCDEc8Jxxx2bGJSdjQk+mZoiJPP5avSst6nyQ1oI4vz6PbfhCGFzLq4VFFG8slLPEPeE6I3v+ZRWdsp/MwTpCOoLXAST8bMZAt7n3I7FVXl9/4/+D9V1n9Iv942mjLZ5u7T8IpL9afj0NZOeIIIWgxe427reB/iux6vi5t2tKMrO/vBS/baYYcxHzBTHHTWkIaT/ZoqUNxW8ipCx+qJseeXJ4C290u5cuQwXw==
 
 build:
  ci:
@@ -24,7 +19,7 @@ build:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
   - grunt
-  - echo $GIT_TAG_NAME
+  - echo $GIT_TAG_NAME and $server1
   - ./node_modules/.bin/istanbul cover grunt -- -u tdd
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
 
